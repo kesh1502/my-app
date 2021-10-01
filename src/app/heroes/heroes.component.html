@@ -1,0 +1,75 @@
+
+<h2>{{hero.name | uppercase}} Details</h2>
+<div><span>id: </span>{{hero.id}}</div>
+<!--<div><span>name: </span>{{hero.name}}</div>-->
+
+<div>
+    <label for="name">Protoype Hero name: </label>
+    <input id="name" [(ngModel)]="hero.name" placeholder="name">
+  </div>
+<br/>
+
+
+<div>
+  <label for="new-hero">Add Hero name: </label>
+  <input id="new-hero" #heroName />
+
+
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button class="add-button" (click)="add(heroName.value); heroName.value=''">
+    Add hero
+  </button>
+</div>
+
+
+<ul class="heroes">
+  <li *ngFor="let hero of heroes">
+    <button class="delete" title="delete hero" (click)="delete(hero)">x</button>
+    <a routerLink="/detail/{{hero.id}}">
+      <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </a>
+  </li>
+</ul>
+  
+
+<!--Commented because of dashboard to add the router link
+<h2>My Heroes</h2>
+<ul class="heroes">
+  <li >
+    <li *ngFor="let hero of heroes" [class.selected]="hero === selectedHero" (click)="onSelect(hero)">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
+  </li>
+</ul>-->
+
+<!-- WILL NOT WORK Since the case of undefined selected is not considerered! 
+    Make use of *ngIf
+<h2>{{selectedHero.name | uppercase}} Details</h2>
+<div><span>id: </span>{{selectedHero.id}}</div>
+<div>
+  <label for="hero-name">Hero name: </label>
+  <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name">
+</div>-->
+
+
+<!--<app-hero-detail [hero]="selectedHero"></app-hero-detail> removed because selected remove-->
+
+<!--The use of component above can be used to simplify the *ngIf one into smaller sub component.
+As before, whenever a user clicks on a hero name, the hero detail appears below the hero list. Now the HeroDetailComponent is presenting those details instead of the HeroesComponent.
+Refactoring the original HeroesComponent into two components yields benefits, both now and in the future:
+You reduced the HeroesComponent responsibilities.
+You can evolve the HeroDetailComponent into a rich hero editor without touching the parent HeroesComponent.
+You can evolve the HeroesComponent without touching the hero detail view.
+You can re-use the HeroDetailComponent in the template of some future component.
+-->
+
+<!--
+<div *ngIf="selectedHero">
+
+    <h2>{{selectedHero.name | uppercase}} Details</h2>
+    <div><span>id: </span>{{selectedHero.id}}</div>
+    <div>
+      <label for="hero-name">Hero name: </label>
+      <input id="hero-name" [(ngModel)]="selectedHero.name" placeholder="name">
+    </div>
+  
+</div>-->
